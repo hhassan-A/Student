@@ -28,11 +28,12 @@ public class Controller {
     public void setView(StudentView view) {
         this.view = view;
         view.exitBtn.setOnAction(e-> Platform.exit());
-        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.CourseInfoBtn.getValue(),view.InfoText);
+        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.CourseComB.getValue(),view.InfoText);
         view.StudentInfoBtn.setOnAction(PrintStudentinfo);
     }
-    public void HandlerPrintStudentinfo(String name){
-
+    public void HandlerPrintStudentinfo(String name,TextArea txtArea){
+        txtArea.clear();
+        txtArea.appendText(" Train, From Station: Departure -> To station: arrival \n");
         for (int i=0;i<trips.size();i++){
             String deptime= String.format("%.2f", trips.get(i).departureTime);
             String arrtime=String.format("%.2f", trips.get(i).arrivalTime);
