@@ -20,7 +20,9 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/15/javafx-base-15-mac.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/15" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

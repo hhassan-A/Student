@@ -21,7 +21,7 @@ public class StudentView {
     ComboBox<String> StudentComB=new ComboBox<>();
     ComboBox<String> CourseComB=new ComboBox<>();
 
-    public StudentView(){ // StudentView(StudentController control)
+    public StudentView(Controller control){ // StudentView(StudentController control)
         //this.control=control;
         createAndConfigure();
     }

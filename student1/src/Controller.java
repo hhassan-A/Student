@@ -31,6 +31,7 @@ public class Controller {
         EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.CourseComB.getValue(),view.InfoText);
         view.StudentInfoBtn.setOnAction(PrintStudentinfo);
     }
+
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
         txtArea.clear();
         txtArea.appendText(" Train, From Station: Departure -> To station: arrival \n");
@@ -42,7 +43,7 @@ public class Controller {
     }
 
 
-    /*
+
     public ObservableList<String> getStudent(){
         ArrayList<String> names= model.SQLQueryStationNames();
         ObservableList<String> stationNames= FXCollections.observableArrayList(names);
@@ -70,7 +71,7 @@ public class Controller {
         return MinutesObs;
     }
 
-     */
+
 
 }
 
