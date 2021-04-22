@@ -25,18 +25,14 @@ public class Controller {
         }
     }
 
-    public void setView(student view) {
+    public void setView(StudentView view) {
         this.view = view;
         view.exitBtn.setOnAction(e-> Platform.exit());
-        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintTrainRoutes(view.StudentComB.getValue(),view.CourseInfoBtn.getValue(),
-              ,view.InfoText);
+        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.CourseInfoBtn.getValue(),view.InfoText);
         view.StudentInfoBtn.setOnAction(PrintStudentinfo);
     }
-    public void HandlerPrintTrainRoutes(String , String To, Integer Hour, Integer Minutes, TextArea txtArea){
-        txtArea.clear();
-        txtArea.appendText(" Train, From Station: Departure -> To station: arrival \n");
-        double time=(double) Hour +((double) Minutes/100);
-        ArrayList<Traintrip> trips= model.FindTrainTrips2(From,To,time);
+    public void HandlerPrintStudentinfo(String name){
+
         for (int i=0;i<trips.size();i++){
             String deptime= String.format("%.2f", trips.get(i).departureTime);
             String arrtime=String.format("%.2f", trips.get(i).arrivalTime);
@@ -45,6 +41,7 @@ public class Controller {
     }
 
 
+    /*
     public ObservableList<String> getStudent(){
         ArrayList<String> names= model.SQLQueryStationNames();
         ObservableList<String> stationNames= FXCollections.observableArrayList(names);
@@ -71,6 +68,8 @@ public class Controller {
         ObservableList<Integer> MinutesObs=FXCollections.observableArrayList(minutes);
         return MinutesObs;
     }
+
+     */
 
 }
 
