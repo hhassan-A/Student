@@ -7,8 +7,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception { //throws Exception
-        /*String url="jdbc:sqlite:/Users/esthermariechristensen/Documents/Softwaredevelopment/Trains.db";
-        TrainModel TDB=new TrainModel(url);
+        String url="student1/identifier.sqlite";
+        /*TrainModel TDB=new TrainModel(url);
         TrainController control=new TrainController(TDB);*/
         //StudentView view= new StudentView(); //(control)
         //  control.setView(view);
