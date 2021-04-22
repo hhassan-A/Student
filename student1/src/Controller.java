@@ -12,7 +12,7 @@ public class Controller {
     StudentModel model;
     StudentView view;
 
-    public StudentController(StudentModel model){
+    public Controller(StudentModel model){
         this.model=model;
         try {
             model.connect();
@@ -25,7 +25,7 @@ public class Controller {
         }
     }
 
-    public void Controller(StudentView view) {
+    public void setView(student view) {
         this.view = view;
         view.exitBtn.setOnAction(e-> Platform.exit());
         EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintTrainRoutes(view.StudentComB.getValue(),view.CourseInfoBtn.getValue(),
