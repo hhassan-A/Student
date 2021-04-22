@@ -28,11 +28,11 @@ public class Controller {
     public void Controller(StudentView view) {
         this.view = view;
         view.exitBtn.setOnAction(e-> Platform.exit());
-        EventHandler<ActionEvent> PrintStudent = e->HandlerPrintTrainRoutes(view.StartStationComB.getValue(),view.EndStationComB.getValue(),
-                view.HourComB.getValue(),view.MinuteComB.getValue(),view.TrainText);
-        view.FindTrainsBtn.setOnAction(PrintTrainTrips);
+        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintTrainRoutes(view.StudentComB.getValue(),view.CourseInfoBtn.getValue(),
+              ,view.InfoText);
+        view.StudentInfoBtn.setOnAction(PrintStudentinfo);
     }
-    public void HandlerPrintTrainRoutes(String From, String To, Integer Hour, Integer Minutes, TextArea txtArea){
+    public void HandlerPrintTrainRoutes(String , String To, Integer Hour, Integer Minutes, TextArea txtArea){
         txtArea.clear();
         txtArea.appendText(" Train, From Station: Departure -> To station: arrival \n");
         double time=(double) Hour +((double) Minutes/100);
@@ -45,13 +45,13 @@ public class Controller {
     }
 
 
-    public ObservableList<String> getStations(){
+    public ObservableList<String> getStudent(){
         ArrayList<String> names= model.SQLQueryStationNames();
         ObservableList<String> stationNames= FXCollections.observableArrayList(names);
         return  stationNames;
     }
 
-    public ObservableList<Integer> getHours(){
+    public ObservableList<Integer> getCourse (){
         ArrayList<Integer> hours=new ArrayList<>();
         for(int i=0;i<24;i++)
         {
