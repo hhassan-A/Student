@@ -1,4 +1,3 @@
-package sample;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 public class Controller {
     StudentModel model;
     StudentView view;
+
     public StudentController(StudentModel model){
         this.model=model;
         try {
