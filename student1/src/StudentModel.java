@@ -24,7 +24,7 @@ public class StudentModel {
     public void CreateStatement() throws SQLException{
         this.stmt = conn.createStatement();
     }
-
+    // denne metode laver og returnerer en array-list med alle station navne, vi behøver vel ikke en lignende metode?
     public ArrayList<String> SQLQueryStationNames(){
         ArrayList<String> Names= new ArrayList<>();
         String sql="Select Name From Station";
@@ -41,8 +41,8 @@ public class StudentModel {
         rs=null;
         return Names;
     }
-
-    public void StationInfoQuery(){
+    // Vi bruger ikke følgende, det fungere til terminalen
+    /* public void StationInfoQuery(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Write the name of the station you wish to get information on:");
         String station =scanner.nextLine();
@@ -60,18 +60,24 @@ public class StudentModel {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-    }
+    } */
+
     public void PreparedStmtFindTripsQuert(){
         String sql = "SELECT D1.StationName,D1.Time,D2.StationName,D2.Time " +
                 "From Departure as D1 " +
                 "JOIN Departure as D2 ON D1.TrainID=D2.TrainID " +
                 "WHERE  D1.StationName= ? AND D2.StationName= ? AND D1.Time> ? AND D1.Time<D2.Time;";
+        /* muligt bud på SQL-statement:
+        "SELECT CourseName, Grade
+        FROM Grade_Registration
+        WHERE StudentName = ?;"*/
         try {
             pstmt = conn.prepareStatement(sql);
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }
+    // denne metode bliver ikke brugt og virker til terminalen
     public void FindTrainTrips(String fromst, String tost, double time){
         try {
             pstmt.setString(1, fromst);
@@ -103,11 +109,27 @@ public class StudentModel {
                 System.out.println(" From Station: " + rs.getString(1) + " To Station: " + rs.getString(3));
                 System.out.println(" Departure time: " + rs.getDouble(2) + " Arrival time: " + rs.getDouble(4));
             }
-
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
         return traintrips;
+    }
+    // Claras bud på en omskrivning af FindTrainTrips, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
+    // så der laves her en array-list med grade registers for elev med givent navn
+    public ArrayList<GradeRegister> FindGradeRegisters(String studentName){
+        ArrayList<GradeRegister> gradeRegisters = new ArrayList<>();
+        try {
+            pstmt.setString(1, studentName);
+            rs=pstmt.executeQuery();
+            if (rs == null){
+                System.out.println("No records fetched.");}
+            while(rs != null && rs.next()){
+                gradeRegisters.add(new GradeRegister(rs.getString(1),rs.getString("CourseName"), rs.getInt("Grade")));
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return gradeRegisters;
     }
 
     public void PrintStations(ArrayList<String> Stations){
@@ -128,5 +150,18 @@ class Traintrip{
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
 
+    }
+}
+
+// er ret sikker på at vi skal have følgende klasse istedet for Traintrip
+// hver grade register bliver tilføjet til en array-list i FindTrainTrips2 eller vores kunne hede FindGradeRegisters
+class GradeRegister{
+    String studentName;
+    String courseName;
+    int grade;
+    public GradeRegister(String studentName, String courseName, int grade){
+        this.studentName = studentName;
+        this.courseName = courseName;
+        this.grade = grade;
     }
 }

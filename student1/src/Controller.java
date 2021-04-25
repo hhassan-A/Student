@@ -34,12 +34,21 @@ public class Controller {
 
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
         txtArea.clear();
-        txtArea.appendText(" Train, From Station: Departure -> To station: arrival \n");
+        txtArea.appendText("Here are courses and grades for the student: " + name +"\n");
+        ArrayList<Traintrip> trips = model.FindTrainTrips2(From, To, time);
+        // clara: tænker følgende i stedet for linje 38:
+        // ArrayList<GradeRegister> registers = model.FindGradeRegisters(name);
         for (int i=0;i<trips.size();i++){
             String deptime= String.format("%.2f", trips.get(i).departureTime);
             String arrtime=String.format("%.2f", trips.get(i).arrivalTime);
             txtArea.appendText(i+";"+ trips.get(i).FromSt + ": "+ deptime + " -> "+ trips.get(i).ToSt +": "+ arrtime + "\n");
         }
+        // og det her for-loop istedet for det forrige:
+        /*for (int i=0; i<registers.size(); i++){
+            String courseName = String.format("%.2f", registers.get(i).courseName);
+            String grade = String.format("%.2f",registers.get(i).grade);
+            txtArea.appendText("Course: " + courseName + ". Grade: " + grade + "\n");
+        }*/
     }
 
 
