@@ -24,7 +24,7 @@ public class StudentModel {
     public void CreateStatement() throws SQLException{
         this.stmt = conn.createStatement();
     }
-    // denne metode laver og returnerer en array-list med alle station navne, vi behøver vel ikke en lignende metode?
+    // følgende metode skal erstattes med de to efterfølgende
     public ArrayList<String> SQLQueryStationNames(){
         ArrayList<String> Names= new ArrayList<>();
         String sql="Select Name From Station";
@@ -40,6 +40,40 @@ public class StudentModel {
         }
         rs=null;
         return Names;
+    }
+    // denne metode skal bruges i Controller til getStudent,
+    // som bruges i view til at indsætte alle elevers navne ind i combobox
+    public ArrayList<String> SQLQueryStudentNames(){
+        ArrayList<String> StudentNames = new ArrayList<>();
+        String sql = "Select Name From Student";
+        try {
+            rs = stmt.executeQuery(sql);
+            while (rs!= null && rs.next()){
+                String name = rs.getString(1);
+                StudentNames.add(name);
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        rs=null;
+        return StudentNames;
+    }
+    // denne metode skal bruges i Controller til getCourse,
+    // som bruges i view til at indsætte alle kursusnavne ind i combobox
+    public ArrayList<String> SQLQueryCourseNames(){
+        ArrayList<String> CourseNames = new ArrayList<>();
+        String sql = "Select CourseName From Course";
+        try {
+            rs = stmt.executeQuery(sql);
+            while (rs!= null && rs.next()){
+                String name = rs.getString(1);
+                CourseNames.add(name);
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        rs=null;
+        return CourseNames;
     }
     // Vi bruger ikke følgende, det fungere til terminalen
     /* public void StationInfoQuery(){
@@ -114,7 +148,7 @@ public class StudentModel {
         }
         return traintrips;
     }
-    // Claras bud på en omskrivning af FindTrainTrips, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
+    // Claras bud på en omskrivning af FindTrainTrips2, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
     // så der laves her en array-list med grade registers for elev med givent navn
     public ArrayList<GradeRegister> FindGradeRegisters(String studentName){
         ArrayList<GradeRegister> gradeRegisters = new ArrayList<>();
@@ -163,5 +197,16 @@ class GradeRegister{
         this.studentName = studentName;
         this.courseName = courseName;
         this.grade = grade;
+    }
+}
+
+class CourseInfo{
+    String courseName;
+    String teacherName;
+    int noOfStudents;
+    double averageGrade;
+    public CourseInfo (String courseName){
+        this.courseName = courseName;
+// der skal være noget mere her med noget prepared statement..
     }
 }

@@ -28,37 +28,60 @@ public class Controller {
     public void setView(StudentView view) {
         this.view = view;
         view.exitBtn.setOnAction(e-> Platform.exit());
-        EventHandler<ActionEvent> PrintStudentinfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.CourseComB.getValue(),view.InfoText);
-        view.StudentInfoBtn.setOnAction(PrintStudentinfo);
+        EventHandler<ActionEvent> PrintStudentInfo = e->HandlerPrintStudentinfo(view.StudentComB.getValue(),view.InfoText);
+        view.StudentInfoBtn.setOnAction(PrintStudentInfo);
+        // der skal også være en event halder for course info:
+        EventHandler<ActionEvent> PrintCourseInfo = e->HandlerPrintCourseInfo(view.CourseComB.getValue(), view.InfoText);
+        view.CourseInfoBtn.setOnAction(PrintCourseInfo);
     }
 
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
         txtArea.clear();
         txtArea.appendText("Here are courses and grades for the student: " + name +"\n");
-        ArrayList<Traintrip> trips = model.FindTrainTrips2(From, To, time);
-        // clara: tænker følgende i stedet for linje 38:
-        // ArrayList<GradeRegister> registers = model.FindGradeRegisters(name);
-        for (int i=0;i<trips.size();i++){
+        //ArrayList<Traintrip> trips = model.FindTrainTrips2(From, To, time);
+        // modificering af forrige
+        ArrayList<GradeRegister> registers = model.FindGradeRegisters(name);
+        /*for (int i=0;i<trips.size();i++){
             String deptime= String.format("%.2f", trips.get(i).departureTime);
             String arrtime=String.format("%.2f", trips.get(i).arrivalTime);
             txtArea.appendText(i+";"+ trips.get(i).FromSt + ": "+ deptime + " -> "+ trips.get(i).ToSt +": "+ arrtime + "\n");
-        }
-        // og det her for-loop istedet for det forrige:
-        /*for (int i=0; i<registers.size(); i++){
+        }*/
+        // modificering af for-loop
+        for (int i=0; i<registers.size(); i++){
             String courseName = String.format("%.2f", registers.get(i).courseName);
             String grade = String.format("%.2f",registers.get(i).grade);
             txtArea.appendText("Course: " + courseName + ". Grade: " + grade + "\n");
-        }*/
+        }
+    }
+    // har prøvet at lave en handler for course info:
+    // har tilføjet teacher, fordi vi skal bruge en join funktion
+    public void HandlerPrintCourseInfo(String name,TextArea txtArea){
+        txtArea.clear();
+        txtArea.appendText("Here is information about the course: " + name +"\n");
+        // vi laver en klasse i model der står for at få info fra databasen
+        CourseInfo courseInfo = new CourseInfo(name);
+        String teacher = String.format("%.2f", courseInfo.teacherName);
+        String grade = String.format("%.2f",courseInfo.averageGrade);
+        String noStudents = String.format("%.2f", courseInfo.noOfStudents);
+        // print information about course to text area:
+        txtArea.appendText("Teacher: " + teacher +
+                            "\nNumber of students: " + noStudents +
+                            "\nAverage grade: " + grade + "\n");
     }
 
-
-
+    // følgende bruges til at få elev navne som skal indsættes i combobox i view
     public ObservableList<String> getStudent(){
-        ArrayList<String> names= model.SQLQueryStationNames();
-        ObservableList<String> stationNames= FXCollections.observableArrayList(names);
-        return  stationNames;
+        ArrayList<String> names= model.SQLQueryStudentNames();
+        ObservableList<String> StudentNames= FXCollections.observableArrayList(names);
+        return  StudentNames;
     }
-
+    // følgende bruges til at få kursusnavne som skal indsættes i combobox i view
+    public ObservableList<String> getCourses(){
+        ArrayList<String> names = model.SQLQueryCourseNames();
+        ObservableList<String> courseNames = FXCollections.observableArrayList(names);
+        return courseNames;
+    }
+    // resterende get metoder herefter kan slettes
     public ObservableList<Integer> getCourse (){
         ArrayList<Integer> hours=new ArrayList<>();
         for(int i=0;i<24;i++)
