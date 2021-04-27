@@ -35,7 +35,7 @@ public class Controller {
         EventHandler<ActionEvent> PrintCourseInfo = e->HandlerPrintCourseInfo(view.CourseComB.getValue(), view.InfoText);
         view.CourseInfoBtn.setOnAction(PrintCourseInfo);
         EventHandler<ActionEvent> InsertGrade = e->HandlerInsertGrade(view.GradeComB.getValue(),view.StudentComB.getValue(),view.CourseComB.getValue(), view.InfoText);
-        view.CourseInfoBtn.setOnAction(PrintCourseInfo);
+        view.GradeBtn.setOnAction(InsertGrade);
     }
 
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
