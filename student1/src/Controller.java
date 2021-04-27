@@ -73,7 +73,8 @@ public class Controller {
 
     public void HandlerInsertGrade(int grade, String studentName, String courseName, TextArea txtArea){
         txtArea.clear();
-        model.SQLQueryUpdateGrade(grade, studentName, courseName);
+        model.SQLUpdateGrade(grade, studentName, courseName);
+
     }
 
 

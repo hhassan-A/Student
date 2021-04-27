@@ -94,10 +94,10 @@ public class StudentModel {
         }
     }
 
-    public void SQLQueryUpdateGrade(int grade, String studentName, String courseName){
-        String sql = "update Grade_Registration set Grade = \""+ grade+"\" where StudentName=\""+ studentName+" \" and CourseName=\""+courseName+"\";";
+    public void SQLUpdateGrade(int grade, String studentName, String courseName){
+        String sql = "update Grade_Registration set Grade = \""+ grade+"\" where StudentName=\""+ studentName+"\" and CourseName=\""+courseName+"\";";
         try {
-            rs = stmt.executeQuery(sql);
+            stmt.executeQuery(sql);
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
