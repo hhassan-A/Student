@@ -18,6 +18,7 @@ public class Controller {
             model.connect();
             model.CreateStatement();
             model.PreparedStmtFindStudentInfoQuery();
+            //model.PreparedStmtFindCourseInfoQuery();
         }catch (SQLException e)
         {
             e.printStackTrace();
@@ -55,8 +56,9 @@ public class Controller {
     public void HandlerPrintCourseInfo(String name,TextArea txtArea){
         txtArea.clear();
         txtArea.appendText("Here is information about the course: " + name +"\n");
+
         // vi laver en klasse i model der står for at få info fra databasen
-        CourseInfo courseInfo = new CourseInfo(name);
+        CourseInfo courseInfo = model.SQLQUeryGetCourseInfo(name);
         String teacher = String.format("%s", courseInfo.teacherName);
         String grade = String.format("%s",courseInfo.averageGrade);
         String noStudents = String.format("%s", courseInfo.noOfStudents);

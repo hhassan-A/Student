@@ -24,23 +24,7 @@ public class StudentModel {
     public void CreateStatement() throws SQLException{
         this.stmt = conn.createStatement();
     }
-    // følgende metode skal erstattes med de to efterfølgende
-    public ArrayList<String> SQLQueryStationNames(){
-        ArrayList<String> Names= new ArrayList<>();
-        String sql="Select Name From Station";
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs != null && rs.next()){
-                String name = rs.getString(1);
-                Names.add(name);
-            }
-        } catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        rs=null;
-        return Names;
-    }
+
     // denne metode skal bruges i Controller til getStudent,
     // som bruges i view til at indsætte alle elevers navne ind i combobox
     public ArrayList<String> SQLQueryStudentNames(){
@@ -87,6 +71,19 @@ public class StudentModel {
         rs=null;
         return avgGrade;
     }
+    public CourseInfo SQLQUeryGetCourseInfo(String courseName){
+        CourseInfo courseInfo = null;
+        String sql = "SELECT avg(Grade), count(StudentName), Course.Teacher FROM Grade_Registration INNER JOIN Course on Grade_Registration.CourseName = Course.CourseName where Course.CourseName= \"" + courseName + "\";";
+        try {
+            rs = stmt.executeQuery(sql);
+            courseInfo = new CourseInfo(courseName,rs.getString("Teacher"), rs.getInt("count(StudentName)"), rs.getDouble("avg(grade)"));
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        rs=null;
+        return courseInfo;
+    }
+
 
     public void PreparedStmtFindStudentInfoQuery(){
         String sql ="SELECT StudentName, CourseName, Grade FROM Grade_Registration WHERE StudentName = ?;";
@@ -96,24 +93,8 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
     }
-    // denne metode bliver ikke brugt og virker til terminalen
-    public void FindTrainTrips(String fromst, String tost, double time){
-        try {
-            pstmt.setString(1, fromst);
-            pstmt.setString(2, tost);
-            pstmt.setDouble(3, time);
-            rs=pstmt.executeQuery();
-            if (rs == null){
-                System.out.println("No records fetched.");}
-            while(rs != null && rs.next()){
-                System.out.println(" From Station: " + rs.getString(1) + " To Station: " + rs.getString(3));
-                System.out.println(" Departure time: " + rs.getDouble(2) + " Arrival time: " + rs.getDouble(4));
-            }
 
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
+
     // Claras bud på en omskrivning af FindTrainTrips2, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
     // så der laves her en array-list med grade registers for elev med givent navn
     public ArrayList<GradeRegister> FindGradeRegisters(String studentName){
@@ -132,11 +113,6 @@ public class StudentModel {
         return gradeRegisters;
     }
 
-    public void PrintStations(ArrayList<String> Stations){
-        for (int i = 0; i<Stations.size(); i++){
-            System.out.println(Stations.get(i));
-        }
-    }
 }
 
 // er ret sikker på at vi skal have følgende klasse istedet for Traintrip
@@ -145,12 +121,11 @@ class GradeRegister{
     String studentName;
     String courseName;
     int grade;
-    double averageGrade;
+
     public GradeRegister(String studentName, String courseName, int grade){
         this.studentName = studentName;
         this.courseName = courseName;
         this.grade = grade;
-        this.averageGrade = averageGrade;
     }
 }
 
@@ -159,8 +134,11 @@ class CourseInfo{
     String teacherName;
     int noOfStudents;
     double averageGrade;
-    public CourseInfo (String courseName){
+    public CourseInfo (String courseName, String teacherName, int noOfStudents, double averageGrade){
         this.courseName = courseName;
-// der skal være noget mere her med noget prepared statement..
+        this.teacherName = teacherName;
+        this.noOfStudents = noOfStudents;
+        this.averageGrade = averageGrade;
+
     }
 }
