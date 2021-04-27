@@ -7,7 +7,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception { //throws Exception
-        String url = "student1/identifier.sqlite";
+        String url = "jdbc:sqlite:student1/identifier.sqlite";
         StudentModel SDB = new StudentModel(url);
         Controller control = new Controller(SDB);
         StudentView view = new StudentView(control);
