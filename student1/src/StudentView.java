@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 
 
 public class StudentView {
-    //private StudentController control;
+    private Controller control;
     private GridPane Startview;
     Button exitBtn=new Button("Exit");
     Button StudentInfoBtn= new Button("Get student's info");
@@ -22,7 +22,7 @@ public class StudentView {
     ComboBox<String> CourseComB=new ComboBox<>();
 
     public StudentView(Controller control){ // StudentView(StudentController control)
-        //this.control=control;
+        this.control=control;
         createAndConfigure();
     }
 
@@ -43,7 +43,7 @@ public class StudentView {
         Startview.add(CourseComB,15,3);
 
 
-       /* ObservableList<String> stations=control.getStations();
+        /*ObservableList<String> stations=control.getStations();
         StartStationComB.setItems(stations);
         EndStationComB.setItems(stations);
         StartStationComB.getSelectionModel().selectFirst();
@@ -52,7 +52,11 @@ public class StudentView {
         HourComB.getSelectionModel().selectFirst();
         MinuteComB.setItems(control.getMinutes());
         MinuteComB.getSelectionModel().selectFirst();*/
-
+        ObservableList<String> students=control.getStudent();
+        StudentComB.setItems(students);
+        StudentComB.getSelectionModel().selectFirst();
+        CourseComB.setItems(control.getCourses());
+        CourseComB.getSelectionModel().selectFirst();
     }
     public Parent asParent() {
         return Startview;

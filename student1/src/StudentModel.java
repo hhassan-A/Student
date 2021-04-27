@@ -97,14 +97,13 @@ public class StudentModel {
     } */
 
     public void PreparedStmtFindTripsQuert(){
-        String sql = "SELECT D1.StationName,D1.Time,D2.StationName,D2.Time " +
+        String sql ="SELECT CourseName, Grade FROM Grade_Registration WHERE StudentName = ?;";
+                /*"SELECT D1.StationName,D1.Time,D2.StationName,D2.Time " +
                 "From Departure as D1 " +
                 "JOIN Departure as D2 ON D1.TrainID=D2.TrainID " +
-                "WHERE  D1.StationName= ? AND D2.StationName= ? AND D1.Time> ? AND D1.Time<D2.Time;";
-        /* muligt bud på SQL-statement:
-        "SELECT CourseName, Grade
-        FROM Grade_Registration
-        WHERE StudentName = ?;"*/
+                "WHERE  D1.StationName= ? AND D2.StationName= ? AND D1.Time> ? AND D1.Time<D2.Time;";*/
+        // muligt bud på SQL-statement:
+
         try {
             pstmt = conn.prepareStatement(sql);
         } catch (SQLException e){

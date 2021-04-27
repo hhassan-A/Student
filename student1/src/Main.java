@@ -17,7 +17,7 @@ public class Main extends Application {
         //StudentView view= new StudentView(); //(control)
         //  control.setView(view);
         primaryStage.setTitle("Student- and course information");
-        //primaryStage.setScene(new Scene(view.asParent(),600,475));
+        primaryStage.setScene(new Scene(view.asParent(),600,475));
         primaryStage.show();
     }
 
