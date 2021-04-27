@@ -94,13 +94,15 @@ public class StudentModel {
         }
     }
 
-    public void SQLUpdateGrade(int grade, String studentName, String courseName){
-        String sql = "update Grade_Registration set Grade = \""+ grade+"\" where StudentName=\""+ studentName+"\" and CourseName=\""+courseName+"\";";
+    public int SQLUpdateGrade(int grade, String studentName, String courseName){
+        String sql = "update Grade_Registration set Grade = \""+ grade+"\" where StudentName=\""+ studentName+"\" and CourseName=\""+courseName+"\" and Grade is null;";
+        int updates = 0;
         try {
-            stmt.executeQuery(sql);
+            updates = stmt.executeUpdate(sql);
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
+    return updates;
     }
 
 
@@ -135,6 +137,7 @@ class GradeRegister{
         this.studentName = studentName;
         this.courseName = courseName;
         this.grade = grade;
+        System.out.println("TEST" + grade);
     }
 }
 

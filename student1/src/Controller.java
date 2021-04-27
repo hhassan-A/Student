@@ -73,7 +73,13 @@ public class Controller {
 
     public void HandlerInsertGrade(int grade, String studentName, String courseName, TextArea txtArea){
         txtArea.clear();
-        model.SQLUpdateGrade(grade, studentName, courseName);
+        int updates = model.SQLUpdateGrade(grade, studentName, courseName);
+        if (updates == 0){
+            txtArea.appendText("The student has already been graded on this course");
+        }
+        else {
+            txtArea.appendText("The students grade on " +courseName+ " has been updated to " + grade);
+        }
 
     }
 
