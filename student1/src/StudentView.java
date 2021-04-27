@@ -15,11 +15,15 @@ public class StudentView {
     Button exitBtn=new Button("Exit");
     Button StudentInfoBtn= new Button("Get student's info");
     Button CourseInfoBtn= new Button("Get course's info");
+    Button GradeBtn= new Button("Insert selected grade for selected student and course");
     Label  StudentLbl=new Label("Select student:");
     Label CourseLbl=new Label("Select course:");
+    Label GradeLbl=new Label("Select grade:");
     TextArea InfoText = new TextArea();
     ComboBox<String> StudentComB=new ComboBox<>();
     ComboBox<String> CourseComB=new ComboBox<>();
+    ComboBox<Integer> GradeComB=new ComboBox<>();
+
 
     public StudentView(Controller control){ // StudentView(StudentController control)
         this.control=control;
@@ -35,12 +39,15 @@ public class StudentView {
         Startview.add(exitBtn,20,20);
         Startview.add(StudentInfoBtn,1,6);
         Startview.add(CourseInfoBtn,1,7);
+        Startview.add(GradeBtn,1,8);
         Startview.add(StudentLbl,1,1);
         Startview.add(CourseLbl,1,3);
-        Startview.add(InfoText,1,8,15,8);
+        Startview.add(GradeLbl, 1, 5);
+        Startview.add(InfoText,1,9,15,9);
 
         Startview.add(StudentComB, 15,1 );
         Startview.add(CourseComB,15,3);
+        Startview.add(GradeComB,15,5);
 
 
         /*ObservableList<String> stations=control.getStations();
@@ -57,6 +64,8 @@ public class StudentView {
         StudentComB.getSelectionModel().selectFirst();
         CourseComB.setItems(control.getCourses());
         CourseComB.getSelectionModel().selectFirst();
+        GradeComB.setItems(control.getGrades());
+        GradeComB.getSelectionModel().selectFirst();
     }
     public Parent asParent() {
         return Startview;

@@ -34,6 +34,8 @@ public class Controller {
         // der skal også være en event halder for course info:
         EventHandler<ActionEvent> PrintCourseInfo = e->HandlerPrintCourseInfo(view.CourseComB.getValue(), view.InfoText);
         view.CourseInfoBtn.setOnAction(PrintCourseInfo);
+        EventHandler<ActionEvent> InsertGrade = e->HandlerInsertGrade(view.GradeComB.getValue(),view.StudentComB.getValue(),view.CourseComB.getValue(), view.InfoText);
+        view.CourseInfoBtn.setOnAction(PrintCourseInfo);
     }
 
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
@@ -67,6 +69,27 @@ public class Controller {
         txtArea.appendText("Teacher: " + teacher +
                             "\nNumber of students: " + noStudents +
                             "\nAverage grade: " + grade + "\n");
+    }
+
+    public void HandlerInsertGrade(int grade, String studentName, String courseName, TextArea txtArea){
+        txtArea.clear();
+        model.SQLQueryUpdateGrade(grade, studentName, courseName);
+    }
+
+
+        public ObservableList<Integer> getGrades(){
+        ArrayList<Integer> grades=new ArrayList<>();
+
+        grades.add(-3);
+        grades.add(00);
+        grades.add(02);
+        grades.add(4);
+        grades.add(7);
+        grades.add(10);
+        grades.add(12);
+
+        ObservableList<Integer> GradesObs=FXCollections.observableArrayList(grades);
+        return GradesObs;
     }
 
     // følgende bruges til at få elev navne som skal indsættes i combobox i view

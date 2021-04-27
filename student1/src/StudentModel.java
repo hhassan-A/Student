@@ -94,6 +94,15 @@ public class StudentModel {
         }
     }
 
+    public void SQLQueryUpdateGrade(int grade, String studentName, String courseName){
+        String sql = "update Grade_Registration set Grade = \""+ grade+"\" where StudentName=\""+ studentName+" \" and CourseName=\""+courseName+"\";";
+        try {
+            rs = stmt.executeQuery(sql);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     // Claras bud på en omskrivning af FindTrainTrips2, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
     // så der laves her en array-list med grade registers for elev med givent navn
