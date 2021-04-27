@@ -97,7 +97,7 @@ public class StudentModel {
     } */
 
     public void PreparedStmtFindTripsQuert(){
-        String sql ="SELECT CourseName, Grade FROM Grade_Registration WHERE StudentName = ?;";
+        String sql ="SELECT StudentName, CourseName, Grade FROM Grade_Registration WHERE StudentName = ?;";
                 /*"SELECT D1.StationName,D1.Time,D2.StationName,D2.Time " +
                 "From Departure as D1 " +
                 "JOIN Departure as D2 ON D1.TrainID=D2.TrainID " +
@@ -157,7 +157,7 @@ public class StudentModel {
             if (rs == null){
                 System.out.println("No records fetched.");}
             while(rs != null && rs.next()){
-                gradeRegisters.add(new GradeRegister(rs.getString(1),rs.getString("CourseName"), rs.getInt("Grade")));
+                gradeRegisters.add(new GradeRegister(rs.getString("StudentName"),rs.getString("CourseName"), rs.getInt("Grade")));
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());

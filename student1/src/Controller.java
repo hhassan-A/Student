@@ -47,9 +47,11 @@ public class Controller {
             txtArea.appendText(i+";"+ trips.get(i).FromSt + ": "+ deptime + " -> "+ trips.get(i).ToSt +": "+ arrtime + "\n");
         }*/
         // modificering af for-loop
+        
         for (int i=0; i<registers.size(); i++){
-            String courseName = String.format("%.2f", registers.get(i).courseName);
-            String grade = String.format("%.2f",registers.get(i).grade);
+            String courseName = String.format("%s", registers.get(i).courseName);
+            String grade = String.format("%s",registers.get(i).grade);
+            System.out.println("Course: " + courseName + ". Grade: " + grade);
             txtArea.appendText("Course: " + courseName + ". Grade: " + grade + "\n");
         }
     }
