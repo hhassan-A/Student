@@ -12,10 +12,7 @@ public class Main extends Application {
         Controller control = new Controller(SDB);
         StudentView view = new StudentView(control);
         control.setView(view);
-        /*TrainModel TDB=new TrainModel(url);
-        TrainController control=new TrainController(TDB);*/
-        //StudentView view= new StudentView(); //(control)
-        //  control.setView(view);
+
         primaryStage.setTitle("Student- and course information");
         primaryStage.setScene(new Scene(view.asParent(),600,475));
         primaryStage.show();

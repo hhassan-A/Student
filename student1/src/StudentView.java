@@ -32,12 +32,12 @@ public class StudentView {
         Startview.setPadding(new Insets(10,10,10,10));
         Startview.setVgap(5);
         Startview.setHgap(1);
-        Startview.add(exitBtn,20,15);
-        Startview.add(StudentInfoBtn,15,6);
-        Startview.add(CourseInfoBtn,15,10);
+        Startview.add(exitBtn,20,20);
+        Startview.add(StudentInfoBtn,1,6);
+        Startview.add(CourseInfoBtn,1,7);
         Startview.add(StudentLbl,1,1);
         Startview.add(CourseLbl,1,3);
-        Startview.add(InfoText,1,7,15,7);
+        Startview.add(InfoText,1,8,15,8);
 
         Startview.add(StudentComB, 15,1 );
         Startview.add(CourseComB,15,3);
