@@ -17,7 +17,7 @@ public class Controller {
         try {
             model.connect();
             model.CreateStatement();
-            model.PreparedStmtFindTripsQuert();
+            model.PreparedStmtFindStudentInfoQuery();
         }catch (SQLException e)
         {
             e.printStackTrace();
@@ -38,22 +38,17 @@ public class Controller {
     public void HandlerPrintStudentinfo(String name,TextArea txtArea){
         txtArea.clear();
         txtArea.appendText("Here are courses and grades for the student: " + name +"\n");
-        //ArrayList<Traintrip> trips = model.FindTrainTrips2(From, To, time);
-        // modificering af forrige
         ArrayList<GradeRegister> registers = model.FindGradeRegisters(name);
-        /*for (int i=0;i<trips.size();i++){
-            String deptime= String.format("%.2f", trips.get(i).departureTime);
-            String arrtime=String.format("%.2f", trips.get(i).arrivalTime);
-            txtArea.appendText(i+";"+ trips.get(i).FromSt + ": "+ deptime + " -> "+ trips.get(i).ToSt +": "+ arrtime + "\n");
-        }*/
-        // modificering af for-loop
-        
+
         for (int i=0; i<registers.size(); i++){
             String courseName = String.format("%s", registers.get(i).courseName);
             String grade = String.format("%s",registers.get(i).grade);
+
             System.out.println("Course: " + courseName + ". Grade: " + grade);
             txtArea.appendText("Course: " + courseName + ". Grade: " + grade + "\n");
         }
+        double avgGrade = model.SQLQueryGetAvarege(name);
+        txtArea.appendText("Grade average: " + avgGrade);
     }
     // har prøvet at lave en handler for course info:
     // har tilføjet teacher, fordi vi skal bruge en join funktion
@@ -62,9 +57,10 @@ public class Controller {
         txtArea.appendText("Here is information about the course: " + name +"\n");
         // vi laver en klasse i model der står for at få info fra databasen
         CourseInfo courseInfo = new CourseInfo(name);
-        String teacher = String.format("%.2f", courseInfo.teacherName);
-        String grade = String.format("%.2f",courseInfo.averageGrade);
-        String noStudents = String.format("%.2f", courseInfo.noOfStudents);
+        String teacher = String.format("%s", courseInfo.teacherName);
+        String grade = String.format("%s",courseInfo.averageGrade);
+        String noStudents = String.format("%s", courseInfo.noOfStudents);
+
         // print information about course to text area:
         txtArea.appendText("Teacher: " + teacher +
                             "\nNumber of students: " + noStudents +
@@ -83,29 +79,6 @@ public class Controller {
         ObservableList<String> courseNames = FXCollections.observableArrayList(names);
         return courseNames;
     }
-    // resterende get metoder herefter kan slettes
-    public ObservableList<Integer> getCourse (){
-        ArrayList<Integer> hours=new ArrayList<>();
-        for(int i=0;i<24;i++)
-        {
-            hours.add(i);
-        }
-        ObservableList<Integer> HoursObs=FXCollections.observableArrayList(hours);
-        return HoursObs;
-    }
-
-
-    public ObservableList<Integer> getMinutes(){
-        ArrayList<Integer> minutes=new ArrayList<>();
-        for(int i=0;i<60;i++)
-        {
-            minutes.add(i);
-        }
-        ObservableList<Integer> MinutesObs=FXCollections.observableArrayList(minutes);
-        return MinutesObs;
-    }
-
-
 
 }
 

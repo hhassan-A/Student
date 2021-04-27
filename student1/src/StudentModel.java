@@ -75,35 +75,21 @@ public class StudentModel {
         rs=null;
         return CourseNames;
     }
-    // Vi bruger ikke følgende, det fungere til terminalen
-    /* public void StationInfoQuery(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Write the name of the station you wish to get information on:");
-        String station =scanner.nextLine();
-        String sql = " SELECT Name, Tracks From Station Where Name='"+station+"';";
-        try{
+    public double SQLQueryGetAvarege(String name){
+        double avgGrade = 0.0;
+        String sql = "SELECT avg(Grade) FROM Grade_Registration WHERE StudentName = \"" + name + "\";";
+        try {
             rs = stmt.executeQuery(sql);
-            if (rs==null){
-                System.out.println("No station with that name");}
-            while(rs != null && rs.next()){
-                String stname = rs.getString(1);
-                Integer stTracks = rs.getInt(2);
-                System.out.println("Station: "+ stname+" has "+ stTracks +" tracks");
-            }
-            rs = null;
+            avgGrade = rs.getDouble("avg(Grade)");
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-    } */
+        rs=null;
+        return avgGrade;
+    }
 
-    public void PreparedStmtFindTripsQuert(){
+    public void PreparedStmtFindStudentInfoQuery(){
         String sql ="SELECT StudentName, CourseName, Grade FROM Grade_Registration WHERE StudentName = ?;";
-                /*"SELECT D1.StationName,D1.Time,D2.StationName,D2.Time " +
-                "From Departure as D1 " +
-                "JOIN Departure as D2 ON D1.TrainID=D2.TrainID " +
-                "WHERE  D1.StationName= ? AND D2.StationName= ? AND D1.Time> ? AND D1.Time<D2.Time;";*/
-        // muligt bud på SQL-statement:
-
         try {
             pstmt = conn.prepareStatement(sql);
         } catch (SQLException e){
@@ -127,25 +113,6 @@ public class StudentModel {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-    }
-    public ArrayList<Traintrip> FindTrainTrips2(String fromst, String tost, double time){
-        ArrayList<Traintrip> traintrips = new ArrayList<>();
-        try {
-            pstmt.setString(1, fromst);
-            pstmt.setString(2, tost);
-            pstmt.setDouble(3, time);
-            rs=pstmt.executeQuery();
-            if (rs == null){
-                System.out.println("No records fetched.");}
-            while(rs != null && rs.next()){
-                traintrips.add(new Traintrip(rs.getString(1),rs.getDouble(2), rs.getString(3),rs.getDouble(4)));
-                System.out.println(" From Station: " + rs.getString(1) + " To Station: " + rs.getString(3));
-                System.out.println(" Departure time: " + rs.getDouble(2) + " Arrival time: " + rs.getDouble(4));
-            }
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return traintrips;
     }
     // Claras bud på en omskrivning af FindTrainTrips2, denne bruger istedet den klasse jeg har lavet i bunden der hedder GradeRegister
     // så der laves her en array-list med grade registers for elev med givent navn
@@ -172,30 +139,18 @@ public class StudentModel {
     }
 }
 
-class Traintrip{
-    String Fromst;
-    double departureTime;
-    String ToSt;
-    double arrivalTime;
-    public Traintrip(String fromst, double departureTime, String toSt, double arrivalTime){
-        this.Fromst = fromst;
-        this.ToSt = toSt;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-
-    }
-}
-
 // er ret sikker på at vi skal have følgende klasse istedet for Traintrip
 // hver grade register bliver tilføjet til en array-list i FindTrainTrips2 eller vores kunne hede FindGradeRegisters
 class GradeRegister{
     String studentName;
     String courseName;
     int grade;
+    double averageGrade;
     public GradeRegister(String studentName, String courseName, int grade){
         this.studentName = studentName;
         this.courseName = courseName;
         this.grade = grade;
+        this.averageGrade = averageGrade;
     }
 }
 
