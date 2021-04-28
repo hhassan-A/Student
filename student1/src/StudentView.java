@@ -42,19 +42,19 @@ public class StudentView {
 
         // Inserts all the elements at specified locations in the GridPane StartView
         Startview.add(exitBtn,20,20);
-        Startview.add(StudentInfoBtn,1,6);
-        Startview.add(CourseInfoBtn,1,7);
-        Startview.add(GradeBtn,1,8);
+        Startview.add(StudentInfoBtn,1,7);
+        Startview.add(CourseInfoBtn,1,8);
+        Startview.add(GradeBtn,1,9);
 
         Startview.add(StudentLbl,1,1);
         Startview.add(CourseLbl,1,3);
         Startview.add(GradeLbl, 1, 5);
 
-        Startview.add(InfoText,1,9,15,9);
+        Startview.add(InfoText,1,10,15,10);
 
-        Startview.add(StudentComB, 15,1 );
-        Startview.add(CourseComB,15,3);
-        Startview.add(GradeComB,15,5);
+        Startview.add(StudentComB, 2,1 );
+        Startview.add(CourseComB,2,3);
+        Startview.add(GradeComB,2,5);
 
         // Set items for the three different combo boxes
         // and sets the first shown/selected item
