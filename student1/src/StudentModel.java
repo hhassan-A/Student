@@ -1,6 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 import static java.sql.DriverManager.getConnection;
 
@@ -17,10 +17,7 @@ public class StudentModel {
     public void connect() throws SQLException {
         conn=getConnection(url);
     }
-    public void close() throws SQLException{
-        if (conn != null)
-            conn.close();
-    }
+
     public void CreateStatement() throws SQLException{
         this.stmt = conn.createStatement();
     }
